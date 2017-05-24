@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label1.Text" xml:space="preserve">
+  <data name="metroLabel1.Text" xml:space="preserve">
     <value>Nullify has been created with the strictly prupose to backup your music, 
 which you currently own and want to protect from possible damage.
 These duplications are allowed under the U.S. and EU Copyright Law (except for UK) 
@@ -126,13 +126,15 @@ and you are entitled to this service by law.
 We provide this as a service, we are not selling you music or distributing music, 
 we are giving you BACKUPS of the music YOU ALREADY OWN. 
 
-You take full responsibility for your own actions when using these backups
-and release Nullify and his developer(s), from all liabilities, 
+You take full responsibility for your own actions when using these backups and release 
+Nullify and his developer(s), from all liabilities, 
 which may arise - expressed, written, or implied. 
 
 By using this software, you are complying with these regulations. 
 This allows Nullify to duplicate, and you (as a consumer) to receive 
-the right to use these backups.</value>
+the right to use these backups.
+
+</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
