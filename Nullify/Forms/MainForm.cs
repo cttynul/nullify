@@ -15,9 +15,7 @@ using MediaToolkit;
 using MediaToolkit.Model;
 using Id3;
 using TagLib;
-using MetroFramework.Forms;
 using Nullify.Forms;
-using MetroFramework;
 
 // Copyright 2017 (C) cttynul
 // 
@@ -35,7 +33,7 @@ using MetroFramework;
 
 namespace Nullify
 {
-    public partial class MainForm : MetroForm
+    public partial class MainForm : Form
     {
         private string directoryPath = "";
 
@@ -45,8 +43,6 @@ namespace Nullify
             InitializeComponent();
             this.AcceptButton = _searchButton;
             _tab.SelectedIndexChanged += new EventHandler(_tab_SelectedIndexChanged);
-            _downloadButton.Visible = false;
-            _lyricsButton.Visible = true;
 
     }
 
@@ -54,16 +50,16 @@ namespace Nullify
         {
             if(_tab.SelectedTab == _tab.TabPages["_tabPlayer"])
             {
-                //_checkBoxDirDef.Visible = false;
+                _checkBoxDirDef.Visible = false;
                 _downloadButton.Visible = false;
-                //_toolStripButtonDownload.Enabled = false;
+                _toolStripButtonDownload.Enabled = false;
                 _lyricsButton.Visible = true;
             }
             else
             {
-                //_checkBoxDirDef.Visible = true;
+                _checkBoxDirDef.Visible = true;
                 _downloadButton.Visible = true;
-                //_toolStripButtonDownload.Enabled = true;
+                _toolStripButtonDownload.Enabled = true;
                 _lyricsButton.Visible = false;
             }
         }
@@ -99,108 +95,93 @@ namespace Nullify
 
         private void playToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
+            if (_resultDataGrid.SelectedCells.Count > 0)
             {
-                if (_resultDataGrid.SelectedCells.Count > 0)
+                if (_vlcWrapper.playState == WMPLib.WMPPlayState.wmppsPlaying)
                 {
-                    if (_vlcWrapper.playState == WMPLib.WMPPlayState.wmppsPlaying)
-                    {
-                        _vlcWrapper.Ctlcontrols.stop();
-                        _vlcWrapper.URL = "";
-
-                    }
-                    int selectedrowindex = _resultDataGrid.SelectedCells[0].RowIndex;
-
-                    //DataGridViewRow selectedRow = _resultDataGrid.Rows[selectedrowindex];
-
-                    // Cells 2 = URL
-                    string _toPlay = Convert.ToString(_resultDataGrid.Rows[selectedrowindex].Cells[2].Value);
-                    WebClient _webWrapper = new WebClient();
-                    // Debug
-                    //MessageBox.Show(_toPlay, "Name Entry Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    Uri url = new Uri("http://www.youtubeinmp3.com/fetch/?video=" + _toPlay);
-                    string downloadDir = "C:\\Temp\\TempMp3.mp3";
-                    if (System.IO.File.Exists(downloadDir))
-                    {
-                        System.IO.File.Delete(downloadDir);
-
-                    }
-                    else
-                    {
-                        //do nothing
-
-                    }
-
-                    _webWrapper.DownloadFileAsync(url, downloadDir);
-                    _webWrapper.DownloadFileCompleted += StreamSong;
+                    _vlcWrapper.Ctlcontrols.stop();
+                    _vlcWrapper.URL = "";
 
                 }
-            }
-            catch
-            {
-                //nothing
+                int selectedrowindex = _resultDataGrid.SelectedCells[0].RowIndex;
+
+                DataGridViewRow selectedRow = _resultDataGrid.Rows[selectedrowindex];
+
+                // Cells 2 = URL
+                string _toPlay = Convert.ToString(selectedRow.Cells[2].Value);
+                WebClient _webWrapper = new WebClient();
+                // Debug
+                //MessageBox.Show(_toPlay, "Name Entry Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                Uri url = new Uri("http://www.youtubeinmp3.com/fetch/?video=" + _toPlay);
+                string downloadDir = "C:\\Temp\\TempMp3.mp3";
+                if (System.IO.File.Exists(downloadDir))
+                {
+                    System.IO.File.Delete(downloadDir);
+
+                }
+                else
+                {
+                    //do nothing
+
+                }
+
+                _webWrapper.DownloadFileAsync(url, downloadDir);
+                _webWrapper.DownloadFileCompleted += StreamSong;
+
             }
         }
 
         private void downloadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
+            if (_resultDataGrid.SelectedCells.Count > 0)
             {
-                if (_resultDataGrid.SelectedCells.Count > 0)
+                int selectedrowindex = _resultDataGrid.SelectedCells[0].RowIndex;
+
+                DataGridViewRow selectedRow = _resultDataGrid.Rows[selectedrowindex];
+
+                // Cells 2 = URL
+                string _toDownload = Convert.ToString(selectedRow.Cells[2].Value);
+                // Debug
+                //MessageBox.Show(_toDownload, "Name Entry Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                FolderBrowserDialog dir = new FolderBrowserDialog();
+                WebClient _webWrapper = new WebClient();
+                string _title = Convert.ToString(selectedRow.Cells[0].Value);
+
+                if (_checkBoxDirDef.Checked)
                 {
-                    int selectedrowindex = _resultDataGrid.SelectedCells[1].RowIndex;
-
-                    //DataGridViewRow selectedRow = _resultDataGrid.Rows[selectedrowindex];
-
-                    // Cells 2 = URL
-                    string _toDownload = Convert.ToString(_resultDataGrid.Rows[selectedrowindex].Cells[2].Value);
-
-                    // Debug
-                    //MessageBox.Show(_toDownload, "Name Entry Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    FolderBrowserDialog dir = new FolderBrowserDialog();
-                    WebClient _webWrapper = new WebClient();
-                    string _title = Convert.ToString(_resultDataGrid.Rows[selectedrowindex].Cells[0].Value);
-
-                    if (_checkBoxDirDef.Checked)
-                    {
-                        directoryPath = Properties.Settings.Default._settingDownloadDir;
-                    }
-                    else
-                    {
-                        if (dir.ShowDialog() == DialogResult.OK)
-                        {
-                            directoryPath = dir.SelectedPath + "//";
-                        }
-                    }
-
-
-                    string downloadDir = directoryPath;
-
-                    if (!Directory.Exists(downloadDir))
-                        Directory.CreateDirectory(downloadDir);
-                    Uri url = new Uri("http://www.youtubeinmp3.com/fetch/?video=" + _toDownload);
-                    _webWrapper.DownloadFileAsync(url, downloadDir + _title + ".mp3");
-                    _webWrapper.DownloadProgressChanged += ProgressDownloadChanged;
-                    _webWrapper.DownloadFileCompleted += DownloadedYeah;
-
-                    //Mp3File file = new Mp3File(toedit);
-                    //Id3Tag idbit = new Id3Tag();
-                    //idbit = file.GetTag(Id3TagFamily.FileStartTag);
-                    //idbit.BeatsPerMinute.AsInt = 320;
-                    //file.WriteTag(idbit, Id3.WriteConflictAction.Replace);
-
-                    // QUI CI SONO LE COSE PER I TAG BELLI
-                    //System.Threading.Thread.Sleep(8000);
-                    //string toedit = downloadDir + _title + ".mp3";
-                    //TagLib.File taggedfile = TagLib.File.Create(toedit);
-                    //taggedfile.Tag.Album = "VincoIo";
-                    //taggedfile.Save();
-
+                    directoryPath = Properties.Settings.Default._settingDownloadDir;
                 }
-            }
-            catch
-            {
-                //nothing
+                else
+                {
+                    if (dir.ShowDialog() == DialogResult.OK)
+                    {
+                        directoryPath = dir.SelectedPath + "//";
+                    }
+                }
+
+
+                string downloadDir = directoryPath;
+
+                if (!Directory.Exists(downloadDir))
+                    Directory.CreateDirectory(downloadDir);
+                Uri url = new Uri("http://www.youtubeinmp3.com/fetch/?video=" + _toDownload);
+                _webWrapper.DownloadFileAsync(url, downloadDir + _title + ".mp3");
+
+                _webWrapper.DownloadFileCompleted += DownloadedYeah;
+
+                //Mp3File file = new Mp3File(toedit);
+                //Id3Tag idbit = new Id3Tag();
+                //idbit = file.GetTag(Id3TagFamily.FileStartTag);
+                //idbit.BeatsPerMinute.AsInt = 320;
+                //file.WriteTag(idbit, Id3.WriteConflictAction.Replace);
+
+                // QUI CI SONO LE COSE PER I TAG BELLI
+                //System.Threading.Thread.Sleep(8000);
+                //string toedit = downloadDir + _title + ".mp3";
+                //TagLib.File taggedfile = TagLib.File.Create(toedit);
+                //taggedfile.Tag.Album = "VincoIo";
+                //taggedfile.Save();
+
             }
 
         }
@@ -209,13 +190,13 @@ namespace Nullify
         {
             if (_checkBoxDirDef.Checked)
             {
-                MetroMessageBox.Show(this, "Your Mp3 has been downloaded in your library directory " + Properties.Settings.Default._settingDownloadDir, "Oh yeah!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Your Mp3 has been downloaded in your library directory " + Properties.Settings.Default._settingDownloadDir, "Oh yeah!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 _dataGridPlayer.Rows.Clear();
                 PopulatePlayer();
             }
             else
             {
-                MetroMessageBox.Show(this, "Your Mp3 has been downloaded!", "Oh yeah!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Your Mp3 has been downloaded!", "Oh yeah!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
         }
@@ -266,19 +247,61 @@ namespace Nullify
             return bm;
         }
 
-        private void PlayDoubleClickLibrary(object sender, EventArgs e)
-        {
-            PlaySong();
-        }
-
         private void _playButton_Click(object sender, EventArgs e)
         {
+            if (_vlcWrapper.playState == WMPLib.WMPPlayState.wmppsPlaying)
+            {
+                _vlcWrapper.Ctlcontrols.pause();
+            }
+            else
+            {
+                if (_resultDataGrid.SelectedCells.Count > 0)
+                {
+                    if (_vlcWrapper.playState == WMPLib.WMPPlayState.wmppsPlaying)
+                    {
+                        _vlcWrapper.Ctlcontrols.stop();
+                        _vlcWrapper.URL = "";
 
-        }
+                    }
+                    int selectedrowindex = _resultDataGrid.SelectedCells[0].RowIndex;
 
-        private void ProgressDownloadChanged(object sender, DownloadProgressChangedEventArgs e)
-        {
-            _progressBar.Value = e.ProgressPercentage;
+                    DataGridViewRow selectedRow = _resultDataGrid.Rows[selectedrowindex];
+
+                    // Cells 2 = URL
+                    string _toPlay = Convert.ToString(selectedRow.Cells[2].Value);
+                    WebClient _webWrapper = new WebClient();
+                    // Debug
+                    //MessageBox.Show(_toPlay, "Name Entry Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    Uri url = new Uri("http://www.youtubeinmp3.com/fetch/?video=" + _toPlay);
+                    string downloadDir = "C:\\Temp\\TempMp3.mp3";
+                    if (System.IO.File.Exists(downloadDir))
+                    {
+                        System.IO.File.Delete(downloadDir);
+
+                    }
+                    else
+                    {
+                        //do nothing
+
+                    }
+
+                    _webWrapper.DownloadFileAsync(url, downloadDir);
+                    _webWrapper.DownloadFileCompleted += StreamSong;
+                }
+                else
+                {
+                    try
+                    {
+                        _vlcWrapper.Ctlcontrols.play();
+
+                    }
+                    catch
+                    {
+                        // do nothing
+                    }
+                }
+
+            }
         }
 
         private void _stopButton_Click(object sender, EventArgs e)
@@ -288,79 +311,66 @@ namespace Nullify
 
         private void _toolStripPlayButton_Click(object sender, EventArgs e)
         {
-            if (_vlcWrapper.playState == WMPLib.WMPPlayState.wmppsPlaying)
+            if (_tab.SelectedTab == _tab.TabPages["_tabDownload"])
             {
-                _vlcWrapper.Ctlcontrols.pause();
-            }
-            else if(_vlcWrapper.playState == WMPLib.WMPPlayState.wmppsPaused)
-            {
-                _vlcWrapper.Ctlcontrols.play();
-            }
-            else
-            {
-                if (_tab.SelectedTab == _tab.TabPages["_tabDownload"])
+                if (_vlcWrapper.playState == WMPLib.WMPPlayState.wmppsPlaying)
                 {
-                    if (_vlcWrapper.playState == WMPLib.WMPPlayState.wmppsPlaying)
-                    {
-                        _vlcWrapper.Ctlcontrols.pause();
-                    }
-                    else
-                    {
-                        if (_resultDataGrid.SelectedCells.Count > 0)
-                        {
-                            if (_vlcWrapper.playState == WMPLib.WMPPlayState.wmppsPlaying)
-                            {
-                                _vlcWrapper.Ctlcontrols.stop();
-                                _vlcWrapper.URL = "";
-
-                            }
-                            int selectedrowindex = _resultDataGrid.SelectedCells[1].RowIndex;
-
-                            //DataGridViewRow selectedRow = _resultDataGrid.Rows[selectedrowindex];
-
-                            // Cells 2 = URL
-                            string _toPlay = Convert.ToString(_resultDataGrid.Rows[selectedrowindex].Cells[2].Value);
-                            WebClient _webWrapper = new WebClient();
-                            // Debug
-                            //MessageBox.Show(_toPlay, "Name Entry Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                            Uri url = new Uri("http://www.youtubeinmp3.com/fetch/?video=" + _toPlay);
-                            string downloadDir = "C:\\Temp\\TempMp3.mp3";
-                            if (System.IO.File.Exists(downloadDir))
-                            {
-                                System.IO.File.Delete(downloadDir);
-
-                            }
-                            else
-                            {
-                                //do nothing
-
-                            }
-
-                            _webWrapper.DownloadFileAsync(url, downloadDir);
-                            _webWrapper.DownloadFileCompleted += StreamSong;
-                        }
-                        else
-                        {
-                            try
-                            {
-                                _vlcWrapper.Ctlcontrols.play();
-                                _timer.Enabled = true;
-                                _vlcWrapper.PlayStateChange += myPlayer_PlayStateChange;
-
-                            }
-                            catch
-                            {
-                                // do nothing
-                            }
-                        }
-
-                    }
+                    _vlcWrapper.Ctlcontrols.pause();
                 }
                 else
                 {
-                    // Play da libreria
-                    PlaySong();
+                    if (_resultDataGrid.SelectedCells.Count > 0)
+                    {
+                        if (_vlcWrapper.playState == WMPLib.WMPPlayState.wmppsPlaying)
+                        {
+                            _vlcWrapper.Ctlcontrols.stop();
+                            _vlcWrapper.URL = "";
+
+                        }
+                        int selectedrowindex = _resultDataGrid.SelectedCells[0].RowIndex;
+
+                        DataGridViewRow selectedRow = _resultDataGrid.Rows[selectedrowindex];
+
+                        // Cells 2 = URL
+                        string _toPlay = Convert.ToString(selectedRow.Cells[2].Value);
+                        WebClient _webWrapper = new WebClient();
+                        // Debug
+                        //MessageBox.Show(_toPlay, "Name Entry Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        Uri url = new Uri("http://www.youtubeinmp3.com/fetch/?video=" + _toPlay);
+                        string downloadDir = "C:\\Temp\\TempMp3.mp3";
+                        if (System.IO.File.Exists(downloadDir))
+                        {
+                            System.IO.File.Delete(downloadDir);
+
+                        }
+                        else
+                        {
+                            //do nothing
+
+                        }
+
+                        _webWrapper.DownloadFileAsync(url, downloadDir);
+                        _webWrapper.DownloadFileCompleted += StreamSong;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            _vlcWrapper.Ctlcontrols.play();
+
+                        }
+                        catch
+                        {
+                            // do nothing
+                        }
+                    }
+
                 }
+            }
+            else
+            {
+                // Play da libreria
+                PlaySong();
             }
 
         }
@@ -377,17 +387,17 @@ namespace Nullify
         {
             if (_resultDataGrid.SelectedCells.Count > 0)
             {
-                int selectedrowindex = _resultDataGrid.SelectedCells[1].RowIndex;
+                int selectedrowindex = _resultDataGrid.SelectedCells[0].RowIndex;
 
-                //DataGridViewRow selectedRow = _resultDataGrid.Rows[selectedrowindex];
+                DataGridViewRow selectedRow = _resultDataGrid.Rows[selectedrowindex];
 
                 // Cells 2 = URL
-                string _toDownload = Convert.ToString(_resultDataGrid.Rows[selectedrowindex].Cells[2].Value);
+                string _toDownload = Convert.ToString(selectedRow.Cells[2].Value);
                 // Debug
                 //MessageBox.Show(_toDownload, "Name Entry Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 FolderBrowserDialog dir = new FolderBrowserDialog();
                 WebClient _webWrapper = new WebClient();
-                string _title = Convert.ToString(_resultDataGrid.Rows[selectedrowindex].Cells[0].Value);
+                string _title = Convert.ToString(selectedRow.Cells[0].Value);
 
                 if (_checkBoxDirDef.Checked)
                 {
@@ -406,7 +416,6 @@ namespace Nullify
                     Directory.CreateDirectory(downloadDir);
                 Uri url = new Uri("http://www.youtubeinmp3.com/fetch/?video=" + _toDownload);
                 _webWrapper.DownloadFileAsync(url, downloadDir + _title + ".mp3");
-                _webWrapper.DownloadProgressChanged += ProgressDownloadChanged;
 
                 _webWrapper.DownloadFileCompleted += DownloadedYeah;
 
@@ -508,55 +517,45 @@ namespace Nullify
         {
             if (_dataGridPlayer.SelectedCells.Count > 0)
             {
+                int selectedrowindex = _dataGridPlayer.SelectedCells[0].RowIndex;
+
+                DataGridViewRow selectedRow = _dataGridPlayer.Rows[selectedrowindex];
+
+                // Cells 2 = URL
+                string _toPlay = Convert.ToString(selectedRow.Cells[6].Value);
+                _vlcWrapper.URL = _toPlay;
+                _vlcWrapper.Ctlcontrols.play();
+
                 try
                 {
-                    int selectedrowindex = _dataGridPlayer.SelectedCells[1].RowIndex;
-
-                    //DataGridViewRow selectedRow = _dataGridPlayer.Rows[selectedrowindex];
-
-                    // Cells 2 = URL
-                    string _toPlay = Convert.ToString(_dataGridPlayer.Rows[selectedrowindex].Cells[6].Value);
-                    _vlcWrapper.URL = _toPlay;
-                    _vlcWrapper.Ctlcontrols.play();
-                    _timer.Enabled = true;
-                    _vlcWrapper.PlayStateChange += myPlayer_PlayStateChange;
-
+                    TagLib.File taggedfile = TagLib.File.Create(_toPlay);
+                    _songName.Text = "Now Playing:" + " " + taggedfile.Tag.JoinedPerformers.ToString() + " - " + taggedfile.Tag.Title.ToString() + " From: " + taggedfile.Tag.Album.ToString();
 
                     try
                     {
-                        TagLib.File taggedfile = TagLib.File.Create(_toPlay);
-                        _songName.Text = "Now Playing:" + " " + taggedfile.Tag.JoinedPerformers.ToString() + " - " + taggedfile.Tag.Title.ToString() + " From: " + taggedfile.Tag.Album.ToString();
-
-                        try
-                        {
-                            var bin = (byte[])taggedfile.Tag.Pictures[0].Data.Data;
-                            _albumPic.Image = ByteToImage(bin);
-                        }
-                        catch
-                        {
-                            _albumPic.Image = Nullify.Properties.Resources.no_album_art;
-                        }
-
-                        try
-                        {
-                            _minuteLabel.Text = "Genre(s): " + taggedfile.Tag.JoinedGenres.ToString() + "; Year: " + taggedfile.Tag.Year.ToString();
-                        }
-                        catch
-                        {
-                            _minuteLabel.Text = "";
-                        }
-
+                        var bin = (byte[])taggedfile.Tag.Pictures[0].Data.Data;
+                        _albumPic.Image = ByteToImage(bin);
                     }
                     catch
                     {
-                        _songName.Text = "Now Playing: No Info";
+                        _albumPic.Image = Nullify.Properties.Resources.no_album_art;
                     }
-                    //taggedfile.Save();
+
+                    try
+                    {
+                        _minuteLabel.Text = "Genre(s): " + taggedfile.Tag.JoinedGenres.ToString() + "; Year: " + taggedfile.Tag.Year.ToString();
+                    }
+                    catch
+                    {
+                        _minuteLabel.Text = "";
+                    }
+
                 }
                 catch
                 {
-                    //nothing
+                    _songName.Text = "Now Playing: No Info";
                 }
+                //taggedfile.Save();
             }
 
 
@@ -576,9 +575,6 @@ namespace Nullify
                 // check for aggiornamentis
                 checkForUpdates();
 
-                _libSettingDirectory.Text = Properties.Settings.Default._settingDownloadDir;
-                
-
                 //populate player
                 try
                 {
@@ -595,75 +591,65 @@ namespace Nullify
 
         private void _downloadButton_Click(object sender, EventArgs e)
         {
-           try
+            if (_resultDataGrid.SelectedCells.Count > 0)
             {
-                if (_resultDataGrid.SelectedCells.Count > 0)
+                int selectedrowindex = _resultDataGrid.SelectedCells[0].RowIndex;
+
+                DataGridViewRow selectedRow = _resultDataGrid.Rows[selectedrowindex];
+
+                // Cells 2 = URL
+                string _toDownload = Convert.ToString(selectedRow.Cells[2].Value);
+                // Debug
+                //MessageBox.Show(_toDownload, "Name Entry Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                FolderBrowserDialog dir = new FolderBrowserDialog();
+                WebClient _webWrapper = new WebClient();
+                string _title = Convert.ToString(selectedRow.Cells[0].Value);
+
+                if (_checkBoxDirDef.Checked)
                 {
-                    int selectedrowindex = _resultDataGrid.SelectedCells[1].RowIndex;
-
-                    //DataGridViewRow selectedRow = _resultDataGrid.Rows[selectedrowindex];
-
-                    // Cells 2 = URL
-                    string _toDownload = Convert.ToString(_resultDataGrid.Rows[selectedrowindex].Cells[2].Value);
-                    // Debug
-                    //MessageBox.Show(_toDownload, "Name Entry Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    FolderBrowserDialog dir = new FolderBrowserDialog();
-                    WebClient _webWrapper = new WebClient();
-                    string _title = Convert.ToString(_resultDataGrid.Rows[selectedrowindex].Cells[0].Value);
-
-                    if (_checkBoxDirDef.Checked)
-                    {
-                        directoryPath = Properties.Settings.Default._settingDownloadDir;
-                    }
-                    else
-                    {
-                        if (dir.ShowDialog() == DialogResult.OK)
-                        {
-                            directoryPath = dir.SelectedPath + "//";
-                        }
-                    }
-
-                    string downloadDir = directoryPath;
-                    if (!Directory.Exists(downloadDir))
-                        Directory.CreateDirectory(downloadDir);
-                    Uri url = new Uri("http://www.youtubeinmp3.com/fetch/?video=" + _toDownload);
-                    _webWrapper.DownloadFileAsync(url, downloadDir + _title + ".mp3");
-                    _webWrapper.DownloadProgressChanged += ProgressDownloadChanged;
-                    _webWrapper.DownloadFileCompleted += DownloadedYeah;
-
+                    directoryPath = Properties.Settings.Default._settingDownloadDir;
                 }
-            }
-            catch
-            {
+                else
+                {
+                    if (dir.ShowDialog() == DialogResult.OK)
+                    {
+                        directoryPath = dir.SelectedPath + "//";
+                    }
+                }
+
+                string downloadDir = directoryPath;
+                if (!Directory.Exists(downloadDir))
+                    Directory.CreateDirectory(downloadDir);
+                Uri url = new Uri("http://www.youtubeinmp3.com/fetch/?video=" + _toDownload);
+                _webWrapper.DownloadFileAsync(url, downloadDir + _title + ".mp3");
+
+                _webWrapper.DownloadFileCompleted += DownloadedYeah;
 
             }
         }
 
         private void _lyricsButton_Click(object sender, EventArgs e)
         {
-           try
+            if (_dataGridPlayer.SelectedCells.Count > 0)
             {
-                if (_dataGridPlayer.SelectedCells.Count > 0)
-                {
-                    int selectedrowindex = _dataGridPlayer.SelectedCells[0].RowIndex;
+                int selectedrowindex = _dataGridPlayer.SelectedCells[0].RowIndex;
 
-                    //DataGridViewRow selectedRow = _dataGridPlayer.Rows[selectedrowindex];
+                DataGridViewRow selectedRow = _dataGridPlayer.Rows[selectedrowindex];
 
-                    string _songPath = Convert.ToString(_dataGridPlayer.Rows[selectedrowindex].Cells[6].Value);
-                    string _tempString = _songPath.Remove(_songPath.Length - 3);
-                    string _lyricsPath = _tempString + "txt";
+                string _songPath = Convert.ToString(selectedRow.Cells[6].Value);
+                string _tempString = _songPath.Remove(_songPath.Length - 3);
+                string _lyricsPath = _tempString + "txt";
 
-                    Form _lyricsForm = new LyricsForm(_lyricsPath);
-                    _lyricsForm.Show();
-
-                }
-            }
-            catch
-            {
-                //nothing
+                Form _lyricsForm = new LyricsForm(_lyricsPath);
+                _lyricsForm.Show();
+                
             }
         }
 
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
 
         private void licenseToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -683,7 +669,7 @@ namespace Nullify
             disForm.Show();
         }
 
-        private void _volumeUP_Click(object sender, EventArgs e)
+        private void _toolStripVolUpButton_Click(object sender, EventArgs e)
         {
             if(_vlcWrapper.settings.volume < 90)
             {
@@ -691,7 +677,7 @@ namespace Nullify
             }
         }
 
-        private void _volumeDown_Click(object sender, EventArgs e)
+        private void _toolStripVolDownButton_Click(object sender, EventArgs e)
         {
             if (_vlcWrapper.settings.volume > 1)
             {
@@ -704,13 +690,13 @@ namespace Nullify
 
             try
             {
-                int localVersion = 2;
+                int localVersion = 1;
                 WebClient _webVersionCheck = new WebClient();
                 string remoteVersion = _webVersionCheck.DownloadString("https://raw.githubusercontent.com/cttynul/nullify/master/Nullify/version.txt");
 
                 if (Convert.ToInt32(remoteVersion) > localVersion)
                 {
-                    DialogResult _wannaUpdate = MetroMessageBox.Show(this, "Seems you're still using version an old Nullify version.\nThe new version has just been released\nDo you wanna update right now?", "There's a new version for you", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                    DialogResult _wannaUpdate = MessageBox.Show("Seems you're still using version an old Nullify version.\nThe new version has just been released\nDo you wanna update right now?", "There's a new version for you", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
                     if (_wannaUpdate == DialogResult.Yes)
                     {
                         System.Diagnostics.Process.Start("https://sourceforge.net/projects/nullify");
@@ -723,85 +709,9 @@ namespace Nullify
             }
             catch
             {
-                MetroMessageBox.Show(this, "Cant check for updates :S", "Oops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Cant check for updates :S", "Oops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
-        }
-
-        private void _searchTextBox_Click(object sender, EventArgs e)
-        {
-            _searchTextBox.Text = "";
-        }
-
-        private void updateLibraryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            PopulatePlayer();
-        }
-
-        private void _browseSettingButton_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog dir = new FolderBrowserDialog();
-            string directoryPath = "";
-            if (dir.ShowDialog() == DialogResult.OK)
-            {
-                directoryPath = dir.SelectedPath;
-            }
-
-
-            string downloadDir = directoryPath + "\\Nullify\\";
-            Properties.Settings.Default._settingDownloadDir = downloadDir;
-            _libSettingDirectory.Text = Properties.Settings.Default._settingDownloadDir;
-        }
-
-        private void _saveSettingButton_Click(object sender, EventArgs e)
-        {
-            Properties.Settings.Default._settingDownloadDir = _libSettingDirectory.Text;
-            Properties.Settings.Default.Save();
-            //this.Close();
-            MetroMessageBox.Show(this, "" + Properties.Settings.Default._settingDownloadDir + " is your new library directory!", "Setting Saved!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            PopulatePlayer();
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=P82RVZEYK4HEE");
-
-        }
-
-        private void myPlayer_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
-        {
-            if (e.newState == 3)
-            {
-                double dur = _vlcWrapper.currentMedia.duration;
-                _progressBar.Maximum = (int)dur;
-            }
-
-            if (_vlcWrapper.playState == WMPLib.WMPPlayState.wmppsPlaying)
-            {
-                _metroPlayButton.Image = Nullify.Properties.Resources.pause;
-            }
-            else
-            {
-                _metroPlayButton.Image = Nullify.Properties.Resources.play_button;
-            }
-
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-             _progressBar.Value = (int)_vlcWrapper.Ctlcontrols.currentPosition;
-            
-        }
-
-        private void _licenseLinkLabel_Click(object sender, EventArgs e)
-        {
-            License _licenseForm = new License();
-            _licenseForm.Show();
-        }
-
-        private void _cttynulLabel_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start("https://github.com/cttynul");
         }
     }
 }

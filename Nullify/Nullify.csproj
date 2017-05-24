@@ -87,18 +87,6 @@
       <HintPath>..\packages\MediaToolkit.1.1.0.1\lib\net40\MediaToolkit.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MetroFramework, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MetroFramework.Design, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.Design.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MetroFramework.Fonts, Version=1.4.0.0, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MetroModernUI.1.4.0.0\lib\net\MetroFramework.Fonts.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -268,17 +256,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="NullifyIcon.ico" />
-    <None Include="Resources\play-button.png" />
-    <None Include="Resources\play-button1.png" />
-    <None Include="Resources\stop.png" />
-    <None Include="Resources\pause.png" />
-    <None Include="Resources\speakermeno.png" />
-    <None Include="Resources\speakerpiu.png" />
-    <None Include="Resources\elegantglitch_inverted.png" />
-    <None Include="Resources\lyrics.png" />
-    <None Include="Resources\cloud-computing.png" />
-    <None Include="Resources\save.png" />
-    <None Include="Resources\folder.png" />
     <Content Include="version.txt" />
     <None Include="Resources\cttynullogo.png" />
     <None Include="Resources\DonatePaypal.gif" />

@@ -8,11 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Environment;
-using MetroFramework.Forms;
 
 namespace Nullify
 {
-    public partial class DirSetting : MetroForm
+    public partial class DirSetting : Form
     {
         public DirSetting()
         {

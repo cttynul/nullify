@@ -8,12 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MetroFramework.Forms;
-using MetroFramework;
 
 namespace Nullify
 {
-    public partial class LyricsForm : MetroForm
+    public partial class LyricsForm : Form
     {
 
         private string _lyricsPath;
@@ -68,8 +66,6 @@ namespace Nullify
                 }
                 sw.Flush();
                 sw.Close();
-                MetroMessageBox.Show(this, "Your lyrics has just been saved, enjoy :3", "Lyrics saved!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
             }
             catch
             {

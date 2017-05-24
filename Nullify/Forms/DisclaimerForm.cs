@@ -7,11 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MetroFramework.Forms;
 
 namespace Nullify.Forms
 {
-    public partial class DisclaimerForm : MetroForm
+    public partial class DisclaimerForm : Form
     {
         public DisclaimerForm()
         {
