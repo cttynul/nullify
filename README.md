@@ -1,5 +1,3 @@
-# Nullify
-
 ![nullify](https://raw.githubusercontent.com/cttynul/nullify/master/Nullify/Resources/MainLogo.png)
 
 ### What the fuc3 is this? 
