@@ -44,3 +44,11 @@ C:\Users\Cttynul\Documents\Visual Studio 2015\Projects\Nullify\Nullify\bin\Debug
 C:\Users\Cttynul\Documents\Visual Studio 2015\Projects\Nullify\Nullify\obj\Debug\Nullify.TrustInfo.xml
 C:\Users\Cttynul\Documents\Visual Studio 2015\Projects\Nullify\Nullify\obj\Debug\Nullify.exe.manifest
 C:\Users\Cttynul\Documents\Visual Studio 2015\Projects\Nullify\Nullify\obj\Debug\Nullify.application
+C:\Users\Cttynul\Documents\GitHub\nullify\Nullify\bin\Debug\Nullify.exe.config
+C:\Users\Cttynul\Documents\GitHub\nullify\Nullify\obj\Debug\Interop.AXVLC.dll
+C:\Users\Cttynul\Documents\GitHub\nullify\Nullify\obj\Debug\Interop.WMPLib.dll
+C:\Users\Cttynul\Documents\GitHub\nullify\Nullify\obj\Debug\AxInterop.AXVLC.dll
+C:\Users\Cttynul\Documents\GitHub\nullify\Nullify\obj\Debug\AxInterop.WMPLib.dll
+C:\Users\Cttynul\Documents\GitHub\nullify\Nullify\obj\Debug\Nullify.csproj.ResolveComReference.cache
+C:\Users\Cttynul\Documents\GitHub\nullify\Nullify\obj\Debug\Nullify.exe
+C:\Users\Cttynul\Documents\GitHub\nullify\Nullify\obj\Debug\Nullify.pdb
