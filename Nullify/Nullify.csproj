@@ -279,6 +279,7 @@
     <None Include="Resources\cloud-computing.png" />
     <None Include="Resources\save.png" />
     <None Include="Resources\folder.png" />
+    <None Include="Resources\checked.png" />
     <Content Include="version.txt" />
     <None Include="Resources\cttynullogo.png" />
     <None Include="Resources\DonatePaypal.gif" />

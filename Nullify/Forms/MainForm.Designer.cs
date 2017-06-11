@@ -62,6 +62,7 @@
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.metroTabPage3 = new MetroFramework.Controls.MetroTabPage();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this._cttynulLabel = new MetroFramework.Controls.MetroLink();
             this._licenseLinkLabel = new MetroFramework.Controls.MetroLink();
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
@@ -77,7 +78,6 @@
             this._metroStopButton = new MetroFramework.Controls.MetroLink();
             this._metroPlayButton = new MetroFramework.Controls.MetroLink();
             this._albumPic = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.authorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.albumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -107,9 +107,9 @@
             this._tabDMCA.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.metroTabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._albumPic)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.libraryBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.songBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -402,10 +402,10 @@
             this.metroLabel6.FontSize = MetroFramework.MetroLabelSize.Small;
             this.metroLabel6.Location = new System.Drawing.Point(5, 157);
             this.metroLabel6.Name = "metroLabel6";
-            this.metroLabel6.Size = new System.Drawing.Size(561, 15);
+            this.metroLabel6.Size = new System.Drawing.Size(551, 15);
             this.metroLabel6.TabIndex = 30;
-            this.metroLabel6.Text = "If unchecked Nullify will asks you where download your file everytime, and theser" +
-    "e won\'t be added to your library";
+            this.metroLabel6.Text = "If unchecked Nullify will asks you where download your file everytime, and these " +
+    "won\'t be added to your library";
             // 
             // metroLabel5
             // 
@@ -561,6 +561,17 @@
             this.metroTabPage3.VerticalScrollbarBarColor = true;
             this.metroTabPage3.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage3.VerticalScrollbarSize = 10;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBox2.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.pictureBox2.Image = global::Nullify.Properties.Resources.cttynullogo;
+            this.pictureBox2.Location = new System.Drawing.Point(250, 14);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(327, 78);
+            this.pictureBox2.TabIndex = 9;
+            this.pictureBox2.TabStop = false;
             // 
             // _cttynulLabel
             // 
@@ -728,17 +739,6 @@
             this._albumPic.TabIndex = 5;
             this._albumPic.TabStop = false;
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBox2.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.pictureBox2.Image = global::Nullify.Properties.Resources.cttynullogo;
-            this.pictureBox2.Location = new System.Drawing.Point(250, 14);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(327, 78);
-            this.pictureBox2.TabIndex = 9;
-            this.pictureBox2.TabStop = false;
-            // 
             // titleDataGridViewTextBoxColumn
             // 
             this.titleDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -904,9 +904,9 @@
             this._tabDMCA.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.metroTabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._albumPic)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.libraryBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.songBindingSource)).EndInit();
             this.ResumeLayout(false);

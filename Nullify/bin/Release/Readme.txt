@@ -26,3 +26,9 @@ This allows Nullify to duplicate, and you (as a consumer) to receive the right t
 Licensed under Apache License 2.0
 You can finde full license and sources in Application Dir under Program Files folder
 For more: https://github.com/cttynul/
+
+Used in this project:
+- ID3.NET by Jeevan https://id3.codeplex.com/license
+- YoutubeSearch by mrklintscher
+- YoutubeExtractor by flagbug https://github.com/flagbug/YoutubeExtractor
+- Metro Framework 1.4.0 by Dennis Magno http://denricdenise.info/

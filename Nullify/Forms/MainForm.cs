@@ -18,6 +18,7 @@ using TagLib;
 using MetroFramework.Forms;
 using Nullify.Forms;
 using MetroFramework;
+using static System.Environment;
 
 // Copyright 2017 (C) cttynul
 // 
@@ -47,8 +48,9 @@ namespace Nullify
             _tab.SelectedIndexChanged += new EventHandler(_tab_SelectedIndexChanged);
             _downloadButton.Visible = false;
             _lyricsButton.Visible = true;
+            _libSettingDirectory.Text = Properties.Settings.Default._settingDownloadDir;
 
-    }
+        }
 
         private void _tab_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -119,6 +121,10 @@ namespace Nullify
                     // Debug
                     //MessageBox.Show(_toPlay, "Name Entry Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     Uri url = new Uri("http://www.youtubeinmp3.com/fetch/?video=" + _toPlay);
+                    _vlcWrapper.URL = url.ToString();
+                    _vlcWrapper.Ctlcontrols.play();
+                    
+
                     string downloadDir = "C:\\Temp\\TempMp3.mp3";
                     if (System.IO.File.Exists(downloadDir))
                     {
@@ -222,8 +228,8 @@ namespace Nullify
 
         private void StreamSong(object sender, AsyncCompletedEventArgs e)
         {
-            _vlcWrapper.URL = "C:\\Temp\\TempMp3.mp3";
-            _vlcWrapper.Ctlcontrols.play();
+            //_vlcWrapper.URL = "C:\\Temp\\TempMp3.mp3";
+            //_vlcWrapper.Ctlcontrols.play();
 
             try
             {
@@ -324,6 +330,9 @@ namespace Nullify
                             // Debug
                             //MessageBox.Show(_toPlay, "Name Entry Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                             Uri url = new Uri("http://www.youtubeinmp3.com/fetch/?video=" + _toPlay);
+                            _vlcWrapper.URL = url.ToString();
+                            _vlcWrapper.Ctlcontrols.play();
+
                             string downloadDir = "C:\\Temp\\TempMp3.mp3";
                             if (System.IO.File.Exists(downloadDir))
                             {
@@ -566,7 +575,8 @@ namespace Nullify
         {
             if (Properties.Settings.Default._settingDownloadDir == "")
             {
-                
+                string _defaultDir = Environment.GetFolderPath(SpecialFolder.CommonMusic) + "\\Nullify\\";
+                _libSettingDirectory.Text = _defaultDir;
                 DisclaimerForm _disForm = new DisclaimerForm();
                 _disForm.ShowDialog();
                 
@@ -704,7 +714,7 @@ namespace Nullify
 
             try
             {
-                int localVersion = 2;
+                int localVersion = 3;
                 WebClient _webVersionCheck = new WebClient();
                 string remoteVersion = _webVersionCheck.DownloadString("https://raw.githubusercontent.com/cttynul/nullify/master/Nullify/version.txt");
 
@@ -713,7 +723,7 @@ namespace Nullify
                     DialogResult _wannaUpdate = MetroMessageBox.Show(this, "Seems you're still using version an old Nullify version.\nThe new version has just been released\nDo you wanna update right now?", "There's a new version for you", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
                     if (_wannaUpdate == DialogResult.Yes)
                     {
-                        System.Diagnostics.Process.Start("https://sourceforge.net/projects/nullify");
+                        System.Diagnostics.Process.Start("https://github.com/cttynul/nullify/releases");
                     }
                 }
                 else
@@ -756,9 +766,18 @@ namespace Nullify
         private void _saveSettingButton_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default._settingDownloadDir = _libSettingDirectory.Text;
-            Properties.Settings.Default.Save();
-            //this.Close();
-            MetroMessageBox.Show(this, "" + Properties.Settings.Default._settingDownloadDir + " is your new library directory!", "Setting Saved!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (Directory.Exists(_libSettingDirectory.Text))
+            {
+                Properties.Settings.Default.Save();
+                MetroMessageBox.Show(this, "" + Properties.Settings.Default._settingDownloadDir + " is your new library directory!", "Setting Saved!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+            else
+            {
+                Directory.CreateDirectory(_libSettingDirectory.Text);
+                Properties.Settings.Default.Save();
+                MetroMessageBox.Show(this, "" + Properties.Settings.Default._settingDownloadDir + " is your new library directory!", "Setting Saved!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
             PopulatePlayer();
         }
 

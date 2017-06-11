@@ -32,15 +32,15 @@
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.textBox1 = new MetroFramework.Controls.MetroTextBox();
-            this._browseForSetting = new MetroFramework.Controls.MetroLink();
             this._saveButton = new MetroFramework.Controls.MetroLink();
+            this._browseForSetting = new MetroFramework.Controls.MetroLink();
             this.SuspendLayout();
             // 
             // metroLabel1
             // 
             this.metroLabel1.AutoSize = true;
             this.metroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.metroLabel1.Location = new System.Drawing.Point(23, 60);
+            this.metroLabel1.Location = new System.Drawing.Point(23, 73);
             this.metroLabel1.Name = "metroLabel1";
             this.metroLabel1.Size = new System.Drawing.Size(121, 25);
             this.metroLabel1.TabIndex = 4;
@@ -49,11 +49,11 @@
             // metroLabel2
             // 
             this.metroLabel2.AutoSize = true;
-            this.metroLabel2.Location = new System.Drawing.Point(31, 85);
+            this.metroLabel2.Location = new System.Drawing.Point(31, 98);
             this.metroLabel2.Name = "metroLabel2";
-            this.metroLabel2.Size = new System.Drawing.Size(216, 19);
+            this.metroLabel2.Size = new System.Drawing.Size(426, 19);
             this.metroLabel2.TabIndex = 5;
-            this.metroLabel2.Text = "Select your default library directory";
+            this.metroLabel2.Text = "Almost done, go to setting tab and set up your Nullify library directory!";
             // 
             // textBox1
             // 
@@ -71,7 +71,7 @@
             this.textBox1.CustomButton.Visible = false;
             this.textBox1.Lines = new string[] {
         "textBox1"};
-            this.textBox1.Location = new System.Drawing.Point(42, 107);
+            this.textBox1.Location = new System.Drawing.Point(128, 21);
             this.textBox1.MaxLength = 32767;
             this.textBox1.Name = "textBox1";
             this.textBox1.PasswordChar = '\0';
@@ -87,30 +87,31 @@
             this.textBox1.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.textBox1.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
+            // _saveButton
+            // 
+            this._saveButton.Image = global::Nullify.Properties.Resources._checked;
+            this._saveButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this._saveButton.ImageSize = 24;
+            this._saveButton.Location = new System.Drawing.Point(413, 134);
+            this._saveButton.Name = "_saveButton";
+            this._saveButton.Size = new System.Drawing.Size(78, 42);
+            this._saveButton.TabIndex = 9;
+            this._saveButton.Text = "Ok";
+            this._saveButton.UseSelectable = true;
+            this._saveButton.Click += new System.EventHandler(this._saveButton_Click);
+            // 
             // _browseForSetting
             // 
             this._browseForSetting.Image = global::Nullify.Properties.Resources.folder;
             this._browseForSetting.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this._browseForSetting.ImageSize = 24;
-            this._browseForSetting.Location = new System.Drawing.Point(395, 85);
+            this._browseForSetting.Location = new System.Drawing.Point(379, 36);
             this._browseForSetting.Name = "_browseForSetting";
             this._browseForSetting.Size = new System.Drawing.Size(112, 62);
             this._browseForSetting.TabIndex = 8;
             this._browseForSetting.Text = "Select Dir";
             this._browseForSetting.UseSelectable = true;
             this._browseForSetting.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // _saveButton
-            // 
-            this._saveButton.Image = global::Nullify.Properties.Resources.save;
-            this._saveButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this._saveButton.ImageSize = 24;
-            this._saveButton.Location = new System.Drawing.Point(194, 136);
-            this._saveButton.Name = "_saveButton";
-            this._saveButton.Size = new System.Drawing.Size(137, 42);
-            this._saveButton.TabIndex = 9;
-            this._saveButton.Text = "Save Settings";
-            this._saveButton.UseSelectable = true;
             // 
             // DirSetting
             // 

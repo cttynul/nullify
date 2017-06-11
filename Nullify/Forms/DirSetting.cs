@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Environment;
 using MetroFramework.Forms;
+using MetroFramework;
 
 namespace Nullify
 {
@@ -20,6 +21,8 @@ namespace Nullify
             InitializeComponent();
             this.AcceptButton = _saveButton;
             
+            _browseForSetting.Visible = false;
+            textBox1.Visible = false;
         }
 
         private void DirSetting_Load(object sender, EventArgs e)
@@ -64,6 +67,12 @@ namespace Nullify
             // do nothing
         }
 
-        
+        private void _saveButton_Click(object sender, EventArgs e)
+        {
+            //Properties.Settings.Default._settingDownloadDir = textBox1.Text;
+            //Properties.Settings.Default.Save();
+            //MetroMessageBox.Show(this, "" + Properties.Settings.Default._settingDownloadDir + " is your new library directory!", "Setting Saved!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Close();
+        }
     }
 }
