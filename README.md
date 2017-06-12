@@ -6,7 +6,7 @@ You can obviously play song before downloading it, that's what normies name "str
 
 ### How to
 
-- Download the last release from [sourceforge](https://sourceforge.net/projects/nullify/).
+- Download the last release [here](https://github.com/cttynul/nullify/releases).
 - Run .exe
 - Install
 - Accept disclaimer
@@ -34,4 +34,4 @@ This allows Nullify to duplicate, and you (as a consumer) to receive the right t
 ### License
 Published under Apache License 2.0
 
-Copyright (c) 2017 ** cttynul  **
+Copyright (c) 2017 [cttynul](https://github.com/cttynul/).
