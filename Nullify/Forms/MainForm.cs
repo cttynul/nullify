@@ -822,6 +822,11 @@ namespace Nullify
         {
             System.Diagnostics.Process.Start("https://github.com/cttynul");
         }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _dataGridPlayer.DataSource = null;
+        }
     }
 }
 

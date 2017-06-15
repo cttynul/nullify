@@ -187,14 +187,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Nullify.exe" size="2701248">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Nullify.exe" size="2968512">
       <assemblyIdentity name="Nullify" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>TJK66pj9LziHfQolAT/GMEviaLMpCIkBVNoi9nq/0to=</dsig:DigestValue>
+        <dsig:DigestValue>KJkigmMhakds+ov6bD8c1VsNgG2x0cr6TgZLidFryeM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -270,7 +270,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Wr22F1+CDwrD2GR/ux96C8yRdXp4KooUVXCUTKagDJY=</dsig:DigestValue>
+      <dsig:DigestValue>xIFKAIZuk2J4FriYdVDTABCoYpNihaXOtlbwa20oW0Y=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
