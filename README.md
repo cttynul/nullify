@@ -1,5 +1,7 @@
 ![nullify](https://raw.githubusercontent.com/cttynul/nullify/master/Nullify/Resources/MainLogo.png)
 
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=P82RVZEYK4HEE)
+
 ### What the fuc3 is this? 
 Nullify allows you to download any mp3 you want, listen to it while you're reading their lyrics, everything with just one software!
 You can obviously play song before downloading it, that's what normies name "streaming".
@@ -11,6 +13,11 @@ You can obviously play song before downloading it, that's what normies name "str
 - Install
 - Accept disclaimer
 - Profit
+
+### Screenshot
+
+![player](https://raw.githubusercontent.com/cttynul/nullify/master/Screenshots/Player.PNG)
+
 
 ### DMCA
 Nullify has been created with the strictly prupose to backup your music, which you currently own and want to protect from possible damage.
