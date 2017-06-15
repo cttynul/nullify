@@ -12,6 +12,11 @@ You can obviously play song before downloading it, that's what normies name "str
 - Accept disclaimer
 - Profit
 
+### Screenshot
+
+![player](https://raw.githubusercontent.com/cttynul/nullify/master/Screenshots/Player.PNG)
+
+
 ### DMCA
 Nullify has been created with the strictly prupose to backup your music, which you currently own and want to protect from possible damage.
 These duplications are allowed under the U.S. and EU Copyright Law (except for UK) and you are entitled to this service by law. 
