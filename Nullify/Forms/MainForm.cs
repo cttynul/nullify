@@ -714,7 +714,7 @@ namespace Nullify
 
             try
             {
-                int localVersion = 3;
+                int localVersion = 4;
                 WebClient _webVersionCheck = new WebClient();
                 string remoteVersion = _webVersionCheck.DownloadString("https://raw.githubusercontent.com/cttynul/nullify/master/Nullify/version.txt");
 
